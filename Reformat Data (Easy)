@@ -1,0 +1,16 @@
+class Solution(object):
+    def reformatDate(self, date):
+        """
+        :type date: str
+        :rtype: str
+        """
+        dic = {"Jan": "01", "Feb":"02", "Mar":"03", "Apr":"04", "May":"05", "Jun":"06", "Jul":"07", "Aug":"08", "Sep":"09", "Oct":"10", "Nov":"11", "Dec":"12"}
+        lst = date.split()
+        strs = lst[2] + "-"
+        strs += dic[lst[1]] + "-"
+        if (len(lst[0])==3):
+            lst[0] = "0" + lst[0]
+        strs += lst[0][0:len(lst[0])-2]
+        return strs
+        
+        
