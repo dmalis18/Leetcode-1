@@ -1,0 +1,21 @@
+class Solution(object):
+    def getFolderNames(self, names):
+        """
+        :type names: List[str]
+        :rtype: List[str]
+        """
+        lst = []
+        dic = {}
+        for i in names:
+            if (i in dic):
+                strs = i
+                while(strs in dic):
+                    strs = i + "(" + str(dic[i]) + ")"
+                    dic[i] += 1
+                dic[strs] = 1
+                lst.append(strs)
+            else:
+                dic[i] = 1
+                lst.append(i)
+        return lst
+        
