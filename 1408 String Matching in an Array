@@ -1,0 +1,16 @@
+class Solution(object):
+    def stringMatching(self, words):
+        """
+        :type words: List[str]
+        :rtype: List[str]
+        """
+        lst = []
+        for i in range (len(words)):
+            for j in range(len(words)):
+                if (j == i):
+                    pass
+                elif (words[i] in words[j]):
+                    lst.append(words[i])
+                    break
+        return lst
+                
