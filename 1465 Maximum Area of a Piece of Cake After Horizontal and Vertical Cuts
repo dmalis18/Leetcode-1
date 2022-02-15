@@ -1,0 +1,42 @@
+class Solution(object):
+    def maxArea(self, h, w, horizontalCuts, verticalCuts):
+        """
+        :type h: int
+        :type w: int
+        :type horizontalCuts: List[int]
+        :type verticalCuts: List[int]
+        :rtype: int
+        """
+        currH = 0
+        currV = 0
+        bestH = 0
+        bestV = 0
+        best = 0
+        horizontalCuts.sort()
+        verticalCuts.sort()
+        for i in range(len(horizontalCuts)+1):
+            numH = 0
+            if (i == len(horizontalCuts)):
+                numH = h - horizontalCuts[-1]
+            else:
+                numH = horizontalCuts[i] - currH
+            if (numH > bestH):
+                bestH = numH
+            if (i != len(horizontalCuts)):
+                currH = horizontalCuts[i]
+        for j in range(len(verticalCuts)+1):
+                numV = 0
+                if (j == len(verticalCuts)):
+                    numV = w - verticalCuts[-1]
+                else:
+                    numV = verticalCuts[j] - currV
+                if (numV > bestV):
+                    bestV = numV
+                if(j != len(verticalCuts)):
+                    currV = verticalCuts[j]
+        best = bestV * bestH
+                
+        best = best % 1000000007
+        return best
+                
+        
