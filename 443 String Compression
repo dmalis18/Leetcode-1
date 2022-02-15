@@ -1,0 +1,19 @@
+class Solution(object):
+    def compress(self, chars):
+        left = 0
+        size = len(chars)
+        while(left < size):
+            currentChar = chars[left]
+            count = 0
+            while(left < size and chars[left] == currentChar):
+                left+=1;
+                count+=1;
+            chars.append(currentChar)
+            if(count != 1):
+                num = len(chars)
+                while(count >= 10):
+                    chars.insert(num, str(count%10))
+                    count /=10
+                chars.insert(num, str(count))
+        del chars[0:size]
+        return len(chars)
