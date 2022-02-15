@@ -1,0 +1,28 @@
+class Solution(object):
+    def findShortestSubArray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if (len(nums)==1):
+            return 1
+        dics = Counter(nums)
+        maximum = 1
+        value = []
+        for i in dics:
+            if (dics[i] >= maximum):
+                maximum = dics[i]
+        for i in dics:
+            if (dics[i] == maximum):
+                value.append(i)
+        maxer=len(nums)
+        for i in value:
+            back = len(nums)-1-nums[::-1].index(i)
+            front = nums.index(i)
+            print(back, front)
+            if (back-front+1 < maxer):
+                maxer = back-front+1
+                print(maxer)
+        return maxer
+        
+        
