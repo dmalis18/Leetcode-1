@@ -1,0 +1,28 @@
+class Solution(object):
+    def suggestedProducts(self, products, searchWord):
+        """
+        :type products: List[str]
+        :type searchWord: str
+        :rtype: List[List[str]]
+        """
+        products = sorted(products)
+        start = 0
+        lst = []
+        prefix_start = 0
+        while start < len(searchWord):
+            temp = []
+            count = 0
+            for i in range(prefix_start, len(products)):
+                if products[i][:start+1] == searchWord[:start+1]:
+                    temp.append(products[i])
+                    count += 1
+                elif count == 0:
+                    prefix_start += 1
+                else:
+                    break
+                    
+                if count == 3:
+                    break
+            lst.append(temp)     
+            start += 1
+        return lst
