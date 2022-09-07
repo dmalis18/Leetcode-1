@@ -1,0 +1,17 @@
+class Solution(object):
+    def groupAnagrams(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: List[List[str]]
+        """
+        dic = {}
+        for i in strs:
+            word = ''.join(sorted(i))
+            if word not in dic:
+                dic[word] = [i]
+            else:
+                dic[word].append(i)
+        lst = []
+        for i in dic:
+            lst.append(dic[i])
+        return lst
