@@ -1,0 +1,33 @@
+from collections import deque
+class Solution(object):
+    def numIslands(self, grid):
+        """
+        :type grid: List[List[str]]
+        :rtype: int
+        """
+        count = 0
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == "1":
+                    queue = deque()
+                    queue.append((i,j))
+                    count += 1
+                    while(len(queue) != 0):
+                        coor = queue.pop()
+                        row = coor[0]
+                        col = coor[1]
+                        grid[row][col] = "0"
+                        #check north
+                        if (row >= 1 and grid[row-1][col] == "1"):
+                            queue.append((row-1, col))
+                        #check east
+                        if (col < len(grid[0])-1 and grid[row][col+1] == "1"):
+                            queue.append((row, col+1))
+                        # #check south
+                        if (row < len(grid)-1 and grid[row+1][col] == "1"):
+                            queue.append((row+1, col))
+                        # #check west
+                        if (col > 0 and grid[row][col-1] == "1"):
+                            queue.append((row, col-1))
+        return count
+        
