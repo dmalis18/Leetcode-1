@@ -1,0 +1,16 @@
+import math
+class Solution(object):
+    def jump(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        count = 0
+        end = 0
+        distance = 0
+        for i in range(len(nums)-1):
+            distance = max(distance, i+nums[i])
+            if (end == i):
+                end = distance
+                count += 1
+        return count
