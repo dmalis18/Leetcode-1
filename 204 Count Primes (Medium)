@@ -1,0 +1,16 @@
+class Solution(object):
+    def countPrimes(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        if n < 2:
+            return 0
+        
+        arr = [1]*n
+        arr[0] = arr[1] = 0
+        for i in range(2, int(n**.5)+1):
+            if (arr[i] == 1):
+                arr[i*i:n:i] = [0] * len(arr[i*i:n:i])
+        return sum(arr)
+
