@@ -1,0 +1,65 @@
+class Solution(object):
+    
+    def helper(self, num, k, l):
+        added = False
+        output = ""
+        u20 = ("Zero One Two Three Four Five Six Seven Eight Nine Ten Eleven Twelve Thirteen Fourteen Fifteen Sixteen Seventeen Eighteen Nineteen").split()
+        tens = "Zero Ten Twenty Thirty Forty Fifty Sixty Seventy Eighty Ninety".split()
+        special = "Hundred Thousand Million Billion".split()
+        if (len(num) == k and int(num[0]) != 0):
+            output += u20[(int(num[0]))] + " "
+            output += special[0] + " "
+            num = num[1:]
+            added = True
+        elif len(num) == k:
+            num = num[1:]
+        if (len(num) > (k-2) and int(num[0:2]) < 20 and int(num[0:2]) > 0):
+            output += u20[(int(num[0:2]))] + " "
+            num = num[2:]
+            added = True
+        elif (len(num) > (k-2) and int(num[0:2]) > 19):
+            output += tens[int(num[0])] + " "
+            if (int(num[1]) != 0):
+                output += u20[int(num[1])] + " "
+            num = num[2:]
+            added = True
+        elif int(num[0]) != 0:
+            output += u20[int(num[0])] + " "
+            num = num[1:]
+            added = True
+        while len(num) > (k-3):
+            num = num[1:]
+        if added and (k-3) != 0:
+            output += special[l] + " "
+        return output, num
+    
+    def numberToWords(self, num):
+        """
+        :type num: int
+        :rtype: str
+        """
+        num = str(num)
+        u20 = ("Zero One Two Three Four Five Six Seven Eight Nine Ten Eleven Twelve Thirteen Fourteen Fifteen Sixteen Seventeen Eighteen Nineteen").split()
+        tens = "Zero Ten Twenty Thirty Forty Fifty Sixty Seventy Eighty Ninety".split()
+        special = "Hundred Thousand Million Billion".split()
+        output = ""
+        added = False
+        if (num == "0"):
+            return "Zero"
+        #billions
+        if (len(num) == 10):
+            output += u20[int(num[0])] + " "
+            output += special[3] + " "
+            num = num[1:]
+        #millions
+        if (len(num) >= 7):
+            temp, num = self.helper(num, 9, 2)
+            output += temp
+        if (len(num) >= 4):
+            temp, num = self.helper(num, 6, 1)
+            output += temp
+        if (len(num) < 4):
+            temp, num = self.helper(num, 3, 0)
+            output += temp
+        return output[:len(output)-1]
+        
