@@ -1,0 +1,25 @@
+class Solution(object):
+    def deckRevealedIncreasing(self, deck):
+        """
+        :type deck: List[int]
+        :rtype: List[int]
+        """
+        deck = sorted(deck)
+        arr = [-1]*len(deck)
+        check = 0
+        skipped = True
+        for i in deck:
+            while not skipped:
+                if arr[check] < 0:
+                    skipped = True
+                check += 1
+                if check >= len(deck):
+                    check = 0
+            while arr[check] >= 0:
+                check += 1
+                if check >= len(deck):
+                    check = 0
+            arr[check] = i
+            skipped = False
+        
+        return arr
