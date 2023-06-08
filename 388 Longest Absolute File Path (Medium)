@@ -1,0 +1,27 @@
+from collections import deque
+class Solution(object):
+    def lengthLongestPath(self, input):
+        """
+        :type input: str
+        :rtype: int
+        """
+        dq = deque([])
+        if "." not in input:
+            return 0
+        pieces = input.split("\n")
+        dq = deque([("", 0, -1, 0)])
+        best = 0
+        while len(dq) != 0:
+            piece = dq.popleft()
+            if "." in piece[0]:
+                best = max(piece[3], best)
+            prefix = piece[2]+1
+            for i in range(piece[1], len(pieces)):
+                if pieces[i].count("\t") == prefix:
+                    dq.append((pieces[i][prefix:],i+1, prefix, piece[3] + len(pieces[i][prefix:])+1))
+                elif pieces[i].count("\t") < prefix:
+                    break
+            print(dq)
+        return best - 1
+        
+        
