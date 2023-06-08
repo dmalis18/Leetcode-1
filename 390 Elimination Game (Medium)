@@ -1,0 +1,16 @@
+from collections import deque
+class Solution(object):
+    def lastRemaining(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        def helper(n, left):
+            if n==1: return 1
+            if left:
+                return 2*helper(n//2, 0)
+            elif n%2==1:
+                return 2*helper(n//2, 1)
+            else:
+                return 2*helper(n//2, 1)-1
+        return helper(n, 1)
