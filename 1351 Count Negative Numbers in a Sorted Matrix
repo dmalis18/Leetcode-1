@@ -1,0 +1,14 @@
+class Solution(object):
+    def countNegatives(self, grid):
+        sums = 0
+        row = 0
+        col = len(grid[0]) - 1
+        while (row < len(grid) and col >= 0):
+            if grid[row][col] >= 0:
+                row += 1
+            else:
+                col -= 1
+                sums += len(grid) - row
+        return sums
+
+
