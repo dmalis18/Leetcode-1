@@ -1,0 +1,7 @@
+class Solution(object):
+    def squareIsWhite(self, coordinates):
+        """
+        :type coordinates: str
+        :rtype: bool
+        """
+        return not (ord(coordinates[0]) % 2 == int(coordinates[1]) % 2)
