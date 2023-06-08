@@ -1,0 +1,16 @@
+class Solution(object):
+    def arraySign(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if 0 in nums:
+            return 0
+        i = 0
+        for j in nums:
+            if j < 0:
+                i += 1
+
+        if i % 2 == 0:
+            return 1
+        return -1
