@@ -1,0 +1,36 @@
+class Solution(object):
+    def intToRoman(self, a):
+        """
+        :type num: int
+        :rtype: str
+        """
+        def helper(num):
+            if num <= 3:
+                return num*"I"
+            elif num == 4:
+                return "IV"
+            elif num > 4 and num < 9:
+                return "V" + helper(num%5)
+            elif num == 9:
+                return "IX"
+            elif num > 9 and num < 40:
+                return (num//10)*"X" + helper(num%10)
+            elif num >= 40 and num < 50:
+                return "XL" + helper(num%40)
+            elif num > 49 and num < 90:
+                return "L" + helper(num%50)
+            elif num >= 90 and num < 100:
+                return "XC" + helper(num%90)
+            elif num >= 100 and num < 400:
+                return (num//100)*"C" + helper(num%100)
+            elif num >= 400 and num < 500:
+                return "CD" + helper(num%400)
+            elif num >= 500 and num < 900:
+                return "D" + helper(num%500)
+            elif num >= 900 and num < 1000:
+                return "CM" + helper(num%900)
+            elif num >= 1000:
+                return (num//1000)*"M" + helper(num%1000)
+        return helper(a)
+            
+        
