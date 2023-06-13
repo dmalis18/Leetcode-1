@@ -1,0 +1,45 @@
+class Solution(object):
+    def isValidSudoku(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: bool
+        """
+        for i in range(9):
+            dic = {}
+            for j in range(9):
+                if board[i][j] == "." or board[i][j] == ",":
+                    continue
+                elif board[i][j] not in dic:
+                    dic[board[i][j]] = True
+                else:
+                    return False
+        
+        for i in range(9):
+            dic = {}
+            for j in range(9):
+                if board[j][i] == "." or board[j][i] == ",":
+                    continue
+                elif board[j][i] not in dic:
+                    dic[board[j][i]] = True
+                else:
+                    print("hello2")
+                    return False
+        
+        boxes = []
+        for i in range(0, 9, 3):
+            for j in range(0, 9, 3):
+                arr = board[i][j:j+3] + board[i+1][j:j+3] + board[i+2][j:j+3]
+                boxes.append(arr)
+
+        for i in range(9):
+            dic = {}
+            for j in range(9):
+                if boxes[i][j] == "." or boxes[i][j] == ",":
+                    continue
+                elif boxes[i][j] not in dic:
+                    dic[boxes[i][j]] = True
+                else:
+                    return False
+        
+
+        return True 
