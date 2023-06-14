@@ -1,0 +1,29 @@
+class Solution(object):
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        def helper(num, target, check):
+            arr = []
+            dic = {}
+            for i in num:
+                if i in check:
+                    continue
+                elif i not in dic:
+                    dic[target-i] = i
+                elif dic[i] == "a":
+                    continue
+                else:
+                    arr.append([-1*target, i, target-i])
+                    dic[i] = "a"
+                    dic[target-i] = "a"
+            return arr
+        output = []
+        checked = set([])
+        for i in range (len(nums)):
+            if nums[i] not in checked:
+                output += helper(nums[i+1:],-nums[i], checked)
+                checked.add(nums[i])
+        return output
+
