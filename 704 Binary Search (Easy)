@@ -1,0 +1,20 @@
+class Solution(object):
+    def dailyTemperatures(self, temperatures):
+        """
+        :type temperatures: List[int]
+        :rtype: List[int]
+        """
+        arr = []
+        output = [0]*len(temperatures)
+        for i in range(len(temperatures)-1, -1, -1):
+            while len(arr) > 0:
+                check = arr.pop()
+                if check[0] > temperatures[i]:
+                    output[i] = check[1] - i
+                    arr.append(check)
+                    break
+            arr.append((temperatures[i], i))
+                        
+        return output
+
+
