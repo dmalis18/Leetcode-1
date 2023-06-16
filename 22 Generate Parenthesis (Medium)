@@ -1,0 +1,34 @@
+class Solution(object):
+    def generateParenthesis(self, n):
+        """
+        :type n: int
+        :rtype: List[str]
+        """
+        def helper(n, opens, arr, idx):
+            if n == 0 and opens == 0:
+                return
+            elif opens > 0:
+                if n > 0:
+                    arr.append(arr[idx]+"(")
+                    helper(n-1, opens+1, arr, len(arr)-1)
+                arr[idx] += ")"
+                helper(n, opens-1, arr, idx)
+            else:
+                if len(arr) > 0:
+                    arr.append(arr[idx]+"(") 
+                    helper(n-1, opens+1, arr, len(arr)-1)
+                else:
+                    arr.append("(")
+                    helper(n-1, opens+1, arr, idx+1)
+        arrs = []
+        helper(n, 0, arrs, -1)
+        arrs2 = []
+        for i in arrs:
+            if len(i) != n*2 or i in arrs2:
+                continue
+            else:
+                arrs2.append(i)
+        return arrs2
+            
+            
+                
