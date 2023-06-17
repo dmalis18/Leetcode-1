@@ -1,0 +1,23 @@
+class Solution(object):
+    def characterReplacement(self, s, k):
+        """
+        :type s: str
+        :type k: int
+        :rtype: int
+        """
+        dic = {}
+        best = 0
+        start = 0
+        maxf = 0
+        for i in range(len(s)):
+            dic[s[i]] = 1 + dic.get(s[i], 0)
+            maxf = max(maxf, dic[s[i]])
+            if (i - start + 1) - maxf > k:
+                dic[s[start]] -= 1
+                start += 1
+            
+            best = max(best, i - start + 1)
+        return best
+            
+            
+            
