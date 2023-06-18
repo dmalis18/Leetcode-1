@@ -15,12 +15,7 @@ class Solution(object):
         while temp:
             num += 1
             temp=temp.next
-        if num == 1:
-            return None
-        elif num == 2 and n == 1:
-            head.next = None
-            return head
-        elif n == num:
+        if n == num:
             return head.next
         temp = head
         for i in range(num-n-1):
