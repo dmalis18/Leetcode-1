@@ -1,0 +1,23 @@
+class Solution(object):
+    def rob(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        n = len(nums)
+        arr = [float("inf")]*n
+        if n == 1:
+            return nums[0]
+        def dp(nums, n):
+            if n < 0:
+                return 0
+            elif n == 0:
+                return nums[n]
+            elif arr[n] != float("inf"):
+                return arr[n]
+            arr[n] = max(dp(nums, n-1), dp(nums, n-2)+nums[n])
+            return arr[n]
+        ans1 = dp(nums[1:], n-2)
+        arr = [float("inf")]*n
+        ans2 = dp(nums[:-1], n-2)
+        return max(ans1, ans2)
