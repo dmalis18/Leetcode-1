@@ -1,0 +1,21 @@
+class Solution(object):
+    def minCostClimbingStairs(self, cost):
+        """
+        :type cost: List[int]
+        :rtype: int
+        """
+        arr = [0]*(len(cost))
+        n = len(cost)
+        def dp(cost, n):
+            if n < 0:
+                return 0
+            if n==0 or n==1:
+                return cost[n]
+            if arr[n] != 0:
+                return arr[n]
+            arr[n] = cost[n] + min(dp(cost, n-1), dp(cost, n-2))
+            return arr[n]
+        return min(dp(cost, n-1), dp(cost, n-2))
+        
+        
+        return 0
