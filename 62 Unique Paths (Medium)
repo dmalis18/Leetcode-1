@@ -1,0 +1,16 @@
+class Solution:
+    def uniquePaths(self, m: int, n: int) -> int:
+        lst = [0]*(n)
+        lst2 = []
+        for i in range(m):
+            lst2.append(lst.copy())
+        def paths(a, b):
+            if a < 0 or b < 0:
+                return 0
+            elif lst2[a][b] != 0:
+                return lst2[a][b]
+            elif a == 0 and b == 0:
+                return 1
+            lst2[a][b] = paths(a-1, b) + paths(a, b-1)
+            return lst2[a][b]
+        return paths(m-1, n-1)
