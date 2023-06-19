@@ -1,0 +1,18 @@
+class Solution(object):
+    def rob(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if len(nums) == 1:
+            return nums[0]
+        
+        arr = [0]*len(nums)
+        arr[0] = nums[0]
+        arr[1] = max(arr[0], nums[1])
+        
+        maximum = arr[1]
+        for i in range(2, len(nums)):
+            arr[i] = max(arr[i-2]+nums[i], arr[i-1])
+            maximum = max(arr[i], maximum)
+        return maximum
