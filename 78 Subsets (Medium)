@@ -1,0 +1,17 @@
+class Solution(object):
+    def subsets(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        q = collections.deque([[]])
+        for i in nums:
+            for j in range(len(q)):
+                val = q.popleft()
+                q.append(val)
+                val2 = val[0:]
+                val2.append(i)
+                q.append(val2)
+        return list(q)
+
+        
