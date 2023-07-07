@@ -1,0 +1,31 @@
+from collections import deque
+
+class Solution(object):
+    def canFinish(self, numCourses, prereq):
+        """
+        :type numCourses: int
+        :type prerequisites: List[List[int]]
+        :rtype: bool
+        """
+        
+        inDegree = {i:0 for i in range(numCourses)}
+        graph = {i:[] for i in range(numCourses)}
+        classOrder = []
+        for child, parent in prereq:
+            graph[parent].append(child)
+            inDegree[child] += 1
+        
+        q = collections.deque()
+
+        for key in inDegree:
+            if inDegree[key] == 0:
+                q.append(key)
+        
+        while q:
+            course = q.popleft()
+            classOrder.append(course)
+            for child in graph[course]:
+                inDegree[child] -= 1
+                if inDegree[child] == 0:
+                    q.append(child)
+        return len(classOrder) == numCourses
