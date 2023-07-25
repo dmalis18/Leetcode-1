@@ -1,0 +1,15 @@
+class Solution(object):
+    def consecutiveNumbersSum(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        counter = 0
+        for i in xrange(1, n+1):
+            diff = i * (i-1)/2
+            end = n - diff
+            if end <= 0:
+                break
+            if end % i == 0:
+                counter+=1
+        return counter
