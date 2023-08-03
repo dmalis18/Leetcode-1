@@ -1,0 +1,20 @@
+class Solution(object):
+    def kItemsWithMaximumSum(self, numOnes, numZeros, numNegOnes, k):
+        """
+        :type numOnes: int
+        :type numZeros: int
+        :type numNegOnes: int
+        :type k: int
+        :rtype: int
+        """
+        count = 0
+        if k <= numOnes:
+            return k
+        else:
+            count = numOnes
+            k -= numOnes
+        if k <= numZeros:
+            return count
+        else:
+            k -= numZeros
+        return count - k
