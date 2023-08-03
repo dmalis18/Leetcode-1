@@ -1,0 +1,50 @@
+class Allocator(object):
+
+    def __init__(self, n):
+        """
+        :type n: int
+        """
+        self.mem = [None]*n
+        
+
+    def allocate(self, size, mID):
+        """
+        :type size: int
+        :type mID: int
+        :rtype: int
+        """
+        cur = 0
+        start = 0
+        worked = -1
+        for i in range(len(self.mem)):
+            if self.mem[i] == None:
+                cur += 1
+                if cur == size:
+                    worked=start
+                    while start <= i:
+                        self.mem[start] = mID
+                        start += 1
+                    break
+            else:
+                cur = 0
+                start = i+1
+        return worked
+            
+
+    def free(self, mID):
+        """
+        :type mID: int
+        :rtype: int
+        """
+        count = 0
+        for i in range(len(self.mem)):
+            if self.mem[i] == mID:
+                self.mem[i] = None
+                count += 1
+        return count
+
+
+# Your Allocator object will be instantiated and called as such:
+# obj = Allocator(n)
+# param_1 = obj.allocate(size,mID)
+# param_2 = obj.free(mID)
