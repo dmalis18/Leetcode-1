@@ -1,0 +1,69 @@
+import heapq
+class Solution(object):
+    def maxPoints(self, grid, queries):
+        """
+        :type grid: List[List[int]]
+        :type queries: List[int]
+        :rtype: List[int]
+        """
+        vals = []
+        for i in range(len(queries)):
+            vals.append((queries[i], i))
+        vals.sort(key=lambda x:x[0])
+        output = [None]*len(queries)
+        queue = []
+        seen = set()
+        loc = {}
+        heap = []
+        count = 0
+        #preprocessing
+        loc[grid[0][0]] = set([(0,0)])
+        heapq.heappush(heap, grid[0][0])
+        for idx in range(len(vals)):
+            while len(heap) > 0 and vals[idx][0] > heap[0]:
+                queue = queue + list(loc[heap[0]])
+                loc.pop(heap[0])
+                heapq.heappop(heap)
+            while len(queue) > 0:
+                count += 1
+                item = queue.pop(0)
+                seen.add(item)
+                r,c = item
+                if r > 0 and (r-1,c) not in seen and (r-1, c) not in queue:
+                    value = grid[r-1][c]
+                    if value < vals[idx][0]:
+                        queue.append((r-1,c))
+                    else:
+                        if value not in loc:
+                            loc[value] = set()
+                            heapq.heappush(heap, value)
+                        loc[value].add((r-1, c))
+                if c > 0 and (r,c-1) not in seen and (r, c-1) not in queue:
+                    value = grid[r][c-1]
+                    if value < vals[idx][0]:
+                        queue.append((r,c-1))
+                    else:
+                        if value not in loc:
+                            loc[value] = set()
+                            heapq.heappush(heap, value)
+                        loc[value].add((r, c-1))
+                if r < len(grid)-1 and (r+1, c) not in seen and (r+1, c) not in queue:
+                    value = grid[r+1][c]
+                    if value < vals[idx][0]:
+                        queue.append((r+1,c))
+                    else:
+                        if value not in loc:
+                            loc[value] = set()
+                            heapq.heappush(heap, value)
+                        loc[value].add((r+1, c))
+                if c < len(grid[0])-1 and (r, c+1) not in seen and (r, c+1) not in queue:
+                    value = grid[r][c+1]
+                    if value < vals[idx][0]:
+                        queue.append((r,c+1))
+                    else:
+                        if value not in loc:
+                            loc[value] = set()
+                            heapq.heappush(heap, value)
+                        loc[value].add((r, c+1))
+            output[vals[idx][1]] = count
+        return output
