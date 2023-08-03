@@ -1,0 +1,23 @@
+class Solution(object):
+    def longestSquareStreak(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        best = -1
+        seen = set()
+        nums = set(nums)
+        for i in sorted(nums):
+            if i in seen:
+                continue
+                
+            seen.add(i)
+            count = 1
+            while i**2 in nums:
+                count += 1
+                seen.add(i**2)
+                i *= i
+            best = max(best, count)
+        return best if best > 1 else -1
+                
+                
