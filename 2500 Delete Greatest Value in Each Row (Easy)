@@ -1,0 +1,17 @@
+class Solution(object):
+    def deleteGreatestValue(self, grid):
+        """
+        :type grid: List[List[int]]
+        :rtype: int
+        """
+        sums = 0
+        for i in grid:
+            i.sort(reverse=True)
+        for count in range(len(grid[0])):
+            best = 0
+            for i in grid:
+                best = max(best, i[0])
+                i.pop(0)
+            sums += best
+            
+        return sums
