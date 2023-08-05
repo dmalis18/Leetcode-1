@@ -1,0 +1,26 @@
+class Solution:
+    def canIWin(self, n: int, total: int) -> bool:
+        if total <= n:
+            return True
+        if n*(n+1)/2 < total:
+            return False
+        seen = {}
+        
+        def can_win(choices, remainder):
+            if choices[-1] >= remainder:
+                return True
+            seen_key = tuple(choices)
+            if seen_key in seen:
+                return seen[seen_key]
+            
+            for idx in range(len(choices)):
+                if not can_win(choices[:idx] + choices[idx+1:], remainder - choices[idx]):
+                    seen[seen_key] = True
+                    return True
+            seen[seen_key] = False
+            return False
+        
+        choices = [i for i in range(1, n+1)]
+        return can_win(choices, total)
+
+        
