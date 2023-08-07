@@ -1,0 +1,11 @@
+class Solution:
+    def canSplitArray(self, nums: List[int], m: int) -> bool:
+        if (len(nums) <= 2):
+            return True
+        prev = 0
+        for num in nums:
+            if (prev+num >= m):
+                return True
+            prev = num
+        
+        return False
