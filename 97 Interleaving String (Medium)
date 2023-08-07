@@ -1,0 +1,52 @@
+class Solution:
+    def isInterleave(self, s1: str, s2: str, s3: str) -> bool:
+        memo = {}
+        def helper(s1, s2, s3, turn):
+            if (s1,s2,s3,turn) in memo:
+                return memo[(s1,s2,s3,turn)]
+            if s3 == "" and len(s1) == 0 and len(s2) == 0:
+                memo[(s1,s2,s3,turn)] = True
+                return memo[(s1,s2,s3,turn)]
+            elif s3 == "":
+                memo[(s1,s2,s3,turn)] = False
+                return False
+            if len(s1) > 0 and s1[0] != s3[0] and len(s2) > 0 and s2[0] != s3[0]:
+                memo[(s1,s2,s3,turn)] = False
+                return False
+            if turn == "s1":
+                for i in range(0, len(s1)):
+                    if s1[:i+1] == s3[:i+1]:
+                        temp = helper(s1[i+1:], s2, s3[i+1:], turn="s2")
+                        if temp:
+                            memo[(s1,s2,s3,turn)] = True
+                            return True
+                    else:
+                        memo[(s1,s2,s3,turn)] = False
+                        return False
+            if turn == "s2":
+                for i in range(0, len(s2)):
+                    if s2[:i+1] == s3[:i+1]:
+                        temp = helper(s1, s2[i+1:], s3[i+1:], turn="s1")
+                        if temp:
+                            memo[(s1,s2,s3,turn)] = True
+                            return True
+                    else:
+                        memo[(s1,s2,s3,turn)] = False
+                        return False
+            if turn == "both":
+                for i in range(0, len(s1)):
+                    if s1[:i+1] == s3[:i+1]:
+                        temp = helper(s1[i+1:], s2, s3[i+1:], turn="s2")
+                        if temp:
+                            memo[(s1,s2,s3,turn)] = True
+                            return True
+                for i in range(0, len(s2)):
+                    if s2[:i+1] == s3[:i+1]:
+                        temp = helper(s1, s2[i+1:], s3[i+1:], turn="s1")
+                        if temp:
+                            memo[(s1,s2,s3,turn)] = True
+                            return True
+            memo[(s1,s2,s3,turn)] = False
+            return False
+        
+        return helper(s1,s2,s3,"both")
