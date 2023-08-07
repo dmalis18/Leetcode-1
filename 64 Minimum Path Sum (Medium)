@@ -1,0 +1,22 @@
+class Solution:
+    def minPathSum(self, grid: List[List[int]]) -> int:
+        dic = {}
+
+        def rec(r, c):
+            if r == 0 and c == 0:
+                dic[(r,c)] = grid[0][0]
+                return grid[0][0]
+            if (r,c) in dic:
+                return dic[(r,c)]
+            if c <= 0:
+                dic[(r,c)] = grid[r][c] + rec(r-1, c)
+                return dic[(r,c)]
+            if r <= 0:
+                dic[(r,c)] = grid[r][c] + rec(r, c-1)
+                return dic[(r,c)]
+            up = rec(r-1,c)
+            left = rec(r,c-1)
+            dic[(r,c)] = grid[r][c] + min(up, left)
+            return dic[(r,c)]
+        
+        return rec(len(grid)-1, len(grid[0])-1)
