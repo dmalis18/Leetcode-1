@@ -1,0 +1,9 @@
+class Solution:
+    def findColumnWidth(self, grid: List[List[int]]) -> List[int]:
+        output = []
+        for c in range(len(grid[0])):
+            longest = len(str(grid[0][c]))
+            for r in range(len(grid)):
+                longest = max(longest, len(str(grid[r][c])))
+            output.append(longest)
+        return output
